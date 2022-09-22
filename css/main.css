@@ -1,0 +1,88 @@
+header{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+}
+.nav-item:hover .dropdown-menu{
+    display:block;
+}
+
+.home{
+    background-image: url(../rev-img-05.jpg);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+}
+.home::after{
+    content: "";
+    background-color: #15374e45;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+.home .title{
+    position: absolute;
+    top: 37%;
+    left: 0%;
+}
+.home h1{
+    font-size: 60px;
+    font-weight: 700;
+    color: #e94d65;
+
+}
+.home_1{
+    background-image: url(../bgn-quotes.jpg);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+}
+.home_view img{
+    height: 55vh;
+}
+
+.card{
+    color: #e94d65;
+    border: 3px solid #e94d65;
+}
+
+label{
+    font-size: 20px;
+}
+.btn{
+    background-color: #e94d65;
+    border: none;
+    color: #fff;
+}
+.btn:hover{
+    background-color:#b73145;
+}
+h3{
+    color: #e94d65;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+td{
+    color: #e94d65;
+}
+
+i{
+    color: #e94d65;
+}
+.radio{
+    width: 10%;
+}
+
+
