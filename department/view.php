@@ -11,7 +11,7 @@
         $row = mysqli_fetch_assoc($depview) ;
     }
 
-    auth();
+    auth(1,2,3);
 
 ?>
 
@@ -20,7 +20,11 @@
         <div class="container col-4 mt-5 mb-5">
         <div class="card mb-2">
             <div class="card-body">
-                <h4 class="card-title text-center"><?= $row['depart_name']?></h4>
+                <h4 class="card-title text-center"><?= $row['depart_name']?>:
+                    <?php 
+                        numemploy($id, $connection)
+                    ?>
+                </h4>
                 <table class="table">
                     <tr>
                         <td>names</td>

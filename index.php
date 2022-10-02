@@ -4,7 +4,7 @@
     include '../web2/general/connect.php';
     include '../web2/general/function.php';
 
-    auth();
+    auth(1,2,3);
 
 ?>
 <section class="home">

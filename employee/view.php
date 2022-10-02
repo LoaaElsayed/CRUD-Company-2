@@ -11,7 +11,7 @@
         $se = mysqli_query($connection, $select);
         $row = mysqli_fetch_assoc($se) ;
     }
-    auth();
+    auth(1,2);
 
 ?>
 
@@ -21,7 +21,7 @@
 
     <div class="container col-4 ">
         <div class="card">
-            <img src="/web2/employee/upload/<?= $row['emp_image']?>" class="card-img-top">
+            <img src="/web2/employee/<?= $row['emp_image']?>" class="card-img-top">
             <div class="card-body">
                 <h4 class="text-center mb-3"> <?= $row['emp_name']?></h4>
                 <h4><?= $row['emp_email']?></h4>

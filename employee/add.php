@@ -4,40 +4,86 @@ include '../shared/nav.php';
 include '../general/connect.php';
 include '../general/function.php';
 $note="";
+
+$arrayerror=[];
+
 // insert employee //
 if (isset($_POST['send'])) {
-    $Name = $_POST['name'];
+    $Name =$_POST['name'];
     $email = $_POST['email'];
     $depID = $_POST['depID'];
-        // upload image //
+ // valdation input//
+    if(trim($Name) ==""){
+        $arrayerror[] = "please enter name";
+    }
+    if(trim($email) ==""){
+        $arrayerror[] = "please enter email";
+    }
+    // val($Name,"please enter name");
+  // val specail char //
+    $lenname=strlen(strip_tags($Name));
+    if($lenname != strlen($Name)){
+        $arrayerror[] = "can't enter name include >,<,/ or any specail char";
+    }
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $arrayerror[]= "please entar correct email";
+    };
+    
+
+  // upload image //
     $image_name = time(). $_FILES['image']['name'];
     $image_tmp = $_FILES['image']['tmp_name'];
-    $location = "./upload/";
-    if(move_uploaded_file($image_tmp , $location . $image_name)){
-        $note = 'ok upload';
-    };
-    $insert = "INSERT INTO `employees`  VALUES (null , '$Name' , '$email','$image_name' ,$depID)";
-    $in = mysqli_query($connection, $insert);
-    // $m= test($in, 'insert');
-
+    $image_size = $_FILES['image']['size'];
+    $image_type = $_FILES['image']['type'];
+    $location = "./upload/$image_name";
+  // validation image//
+        // val by size //
+    if(($image_size/1024)/1024 > 1){
+        $arrayerror[] = "please enter file less than 1 MB";
+    }
+        // val by name //
+    if(trim($_FILES['image']['name'])==""){
+        $arrayerror[] = "please enter image";
+    }
+        // val by type //
+    if($image_type == 'image/webp' || $image_type == 'image/jpg' || $image_type == 'image/png' || $image_type == 'image/jpeg'){
+        move_uploaded_file($image_tmp , $location);
+    }
+    else{
+        $arrayerror[] = "please enter file webp/jpg/png/jepg";
+    }
+  // insert name&email//
+    if(empty($arrayerror)){
+        $insert = "INSERT INTO `employees`  VALUES (null , '$Name' , '$email','$location' ,$depID)";
+        $in = mysqli_query($connection, $insert);
+    }
+    
 }
+  // select dep_id  //
+    $select = "SELECT * FROM `depaetments`";
+    $departments = mysqli_query($connection, $select);
 
-// select dep_id  //
-$select = "SELECT * FROM `depaetments`";
-$departments = mysqli_query($connection, $select);
-// $m = test($s , 'select conn');
-
-auth();
+auth(1,2);
 
 ?>
 
 <section class="home_1">
     <h3 class="text-center">Welcome In Add Employee </h3>
-    <h6 class="text-center"><?= $note?> </h6>
+    <!-- <h6 class="text-center"><?php print_r($_FILES);?> </h6> -->
     <?php if((!empty($m))):?>
     <div class="alert alert-danger" role="alert">
         <?php echo $m?>
     </div>
+    <?php endif;?>
+    <?php if(!empty($arrayerror)):?>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <?php foreach ($arrayerror as $dateerror) :?>
+                    <li><?= $dateerror?></li>
+                <?php endforeach;?>
+            </ul>
+            
+        </div>
     <?php endif;?>
     <div class="container col-5">
         <div class="card">

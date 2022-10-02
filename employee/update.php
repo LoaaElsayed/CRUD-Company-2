@@ -5,7 +5,7 @@ include '../general/connect.php';
 include '../general/function.php';
 
 
-
+$arrayerror=[];
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $selectupsate = "SELECT * from `employees` WHERE id = $id";
@@ -17,19 +17,54 @@ if (isset($_GET['edit'])) {
     }else{
         $image_name = time() . $_FILES['image']['name'];
         $image_tmp = $_FILES['image']['tmp_name'];
-        $location = "./upload/";
-        if (move_uploaded_file($image_tmp, $location . $image_name)) {
-            echo 'ok upload';
-        };
+        $image_size = $_FILES['image']['size'];
+        $image_type = $_FILES['image']['type'];
+        $location = "./upload/$image_name";
+        move_uploaded_file($image_tmp , $location);
+        // val image by size //
+        if(($image_size/1024)/1024 > 1){
+            $arrayerror[]= "please entar file less than 1MB";
+        }
+        // val image by type //
+        if($image_type == 'image/webp' || $image_type == 'image/jpg' || $image_type == 'image/png' || $image_type == 'image/jpeg'){
+            move_uploaded_file($image_tmp , $location);
+        }
+        else{
+            $arrayerror[] = "please enter file webp/jpg/png/jepg";
+        }
+
     }
     // update employee //
     if (isset($_POST['update'])) {
         $Name = $_POST['name'];
         $email = $_POST['email'];
         $depID = $_POST['depID'];
-        $update="UPDATE `employees` SET `name`='$Name',`email`='$email',`image`='$image_name' ,`depID`='$depID' WHERE id =$id";
-        $up = mysqli_query($connection, $update);
-        path('employee/list.php');
+        if(trim($Name) == ""){
+            $arrayerror[]= "please entar name";
+        }
+        // val  specail char name //
+        $lenname = strlen (strip_tags($_POST['name'])) ;
+        if ($lenname !=strlen($Name)) {
+            $arrayerror[]= "can't enter name include special char";
+        }
+        // val email //
+        if(trim($email)==""){
+            $arrayerror[]= "please entar email";
+        }
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $arrayerror[]= "please entar correct email";
+        };
+        
+
+
+        if(empty($arrayerror)){
+            $update="UPDATE `employees` SET `name`='$Name',`email`='$email',`image`='$location' ,`depID`='$depID' WHERE id =$id";
+            $up = mysqli_query($connection, $update);
+            path('employee/list.php');
+        }
+        
+
+        
 
     }
 }
@@ -38,11 +73,21 @@ $select = "SELECT * FROM `depaetments`";
 $departments = mysqli_query($connection, $select);
 
 
-auth();
+auth(1,2);
 
 ?>
 <section>
     <h1 class="text-center m-5">Welcome In Add Employee : <?= $row['name'] ?> </h1>
+    <?php if(!empty($arrayerror)):?>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <?php foreach ($arrayerror as $dateerror) :?>
+                    <li><?= $dateerror?></li>
+                <?php endforeach;?>
+            </ul>
+            
+        </div>
+    <?php endif;?>
     <div class="container col-5">
         <div class="card mt-2">
             <div class="card-body">
@@ -56,7 +101,7 @@ auth();
                         <input type="text" class="form-control" name="email" value="<?= $row['email'] ?>">
                     </div>
                     <div class="form-group">
-                        <label for="">Employee Image : <img src="/web2/employee/upload/<?= $row['image'] ?>" width="20"></label>
+                        <label for="">Employee Image : <img src="/web2/employee/<?= $row['image'] ?>" width="20"></label>
                         <input type="file" class="form-control" name="image">
                     </div>
                     <div class="form-group">

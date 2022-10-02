@@ -5,18 +5,23 @@
     include '../general/function.php';
 
 
-    
+   // select table //
     $select = "SELECT * FROM `employees`";
     $se = mysqli_query($connection, $select);
-
+   // delete employee//
     if(isset($_GET['delete'])){
         $id = $_GET['delete'];
+        $selectelement= "SELECT * from `employees` where id=$id";
+        $selele=mysqli_query($connection, $selectelement);
+        $rowele=mysqli_fetch_assoc($selele);
+        $imge = $rowele['image'];
+        unlink($imge);
         $delete ="DELETE FROM `employees` WHERE id = $id";
         $d = mysqli_query($connection , $delete) ;
         path('employee/list.php');
     }
 
-    auth();
+    auth(1,2);
 
 ?>
 

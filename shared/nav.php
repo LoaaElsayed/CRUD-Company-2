@@ -4,6 +4,20 @@ if (isset($_GET['logout'])) {
     session_destroy();
 }
 
+function auth2(){
+    $numroleacess=0;
+    $num1=1;
+    if($_SESSION['admin']['role'] ==$num1){
+        $numroleacess=1;
+    }
+    elseif($_SESSION['admin']['role'] ==2){
+        $numroleacess=2;
+    }
+    else{
+        return false;
+    }
+    return $numroleacess;
+}
 ?>
 
 <header class="bg-dark">
@@ -17,6 +31,7 @@ if (isset($_GET['logout'])) {
                 <?php if (isset($_SESSION['admin'])) : ?>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto ">
+                        <?php if(auth2()==1 ||auth2()==2):?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                     Employee
@@ -26,6 +41,7 @@ if (isset($_GET['logout'])) {
                                     <a class="dropdown-item" href="/web2/employee/add.php">Add</a>
                                 </div>
                             </li>
+                            <?php endif?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                     Department
@@ -37,9 +53,11 @@ if (isset($_GET['logout'])) {
                             </li>
                         </ul>
                         <ul class="navbar-nav mr-auto ">
+                            <?php if(auth2()==1):?>
                             <li class="nav-item active">
                                 <a href="/web2/admin/add.php" class="btn btn-secondary mr-2  my-2" type="submit">Add Admin</a>
                             </li>
+                            <?php endif?>
                             <li class="nav-item active">
                                 <a href="/web2/admin/list.php" class="btn btn-secondary mr-2  my-2" type="submit">List Admin</a>
                             </li>

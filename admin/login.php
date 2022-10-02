@@ -9,20 +9,24 @@ if(isset($_POST['login'])){
     $email = $_POST['emailadmin'];
     $pass = $_POST['passadmin'];
     $newpasslog = sha1($pass);
-    $selectadmin="SELECT * FROM `admin` WHERE `Email`= '$email' and `password`= '$newpasslog '";
+    $selectadmin="SELECT * FROM `admin` WHERE `Email`= '$email' and `password`= '$newpasslog'";
     $sadmin = mysqli_query($connection, $selectadmin) ;
     $numRows = mysqli_num_rows($sadmin);
+    $rowadmin = mysqli_fetch_assoc($sadmin) ;
     if($numRows > 0){
-        $_SESSION['admin'] = $email;
+        $_SESSION['admin'] = [
+            'email'=>$email,
+            'role' =>$rowadmin['role']
+        ];
         path('/');
     }
     else{
         $message ="You is Not Admin";
     }
 }
-if(isset($_SESSION['admin'])){
-    path('/');
-}
+// if(isset($_SESSION['admin'])){
+//     path('/');
+
 ?>
 <section class="home_1">
     <h3 class="text-center">Welcome Admin </h3>

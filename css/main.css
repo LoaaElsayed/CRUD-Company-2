@@ -48,9 +48,6 @@ header{
     overflow: hidden;
     position: relative;
 }
-.home_view img{
-    height: 55vh;
-}
 
 .card{
     color: #e94d65;

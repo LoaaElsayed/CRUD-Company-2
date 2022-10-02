@@ -17,7 +17,7 @@ if(isset($_GET['edit'])){
         path('department/list.php');
     }
 }
-auth();
+auth(1);
 
 ?>
     <section class="home_1"> 
