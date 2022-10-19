@@ -45,9 +45,9 @@
                                     <?php echo $data['name'] ?>
                                 </th>
                                 <th>
-                                    <a href="view.php?show=<?= $data['id']?>" class="mr-3"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="list.php?delete=<?= $data['id']?>" class="mr-3"><i class="fa-solid fa-trash"></i></a>
-                                    <a href="update.php?edit=<?= $data['id']?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="/web2/employee/view.php?show=<?= $data['id']?>" class="mr-3"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="/web2/employee/list.php?delete=<?= $data['id']?>" class="mr-3"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="/web2/employee/update.php?edit=<?= $data['id']?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                 </th>
                             </tr>
                         <?php } ?>

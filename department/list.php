@@ -3,7 +3,7 @@ include '../shared/header.php';
 include '../shared/nav.php';
 include '../general/connect.php';
 include '../general/function.php';
-
+$mess="";
 $depselect = " SELECT * FROM `depaetments`";
 $dep_se = mysqli_query($connection, $depselect);
 
@@ -13,8 +13,7 @@ if (isset($_GET['delete'])) {
     mysqli_query($connection, $depdelete);
     path("department/list.php");
 }
-
-auth(1,2,3);
+auth(1, 2, 3);
 
 
 ?>
@@ -22,6 +21,11 @@ auth(1,2,3);
 <section class="home_list">
     <h3 class="text-center">Welcome In List Department </h3>
     <div class="container col-6">
+        <?php if ((!empty($mess))) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $mess ?>
+            </div>
+        <?php endif; ?>
         <div class="card m-2">
             <div class="card-body">
                 <table class="table">
@@ -32,7 +36,7 @@ auth(1,2,3);
                         <td>Num Employees</td>
                         <td>Action</td>
                     </tr>
-                    <?php foreach ($dep_se as $data) { ?>
+                    <?php foreach ($dep_se as $data) :?>
                         <tr>
                             <th>
                                 <?php
@@ -47,16 +51,16 @@ auth(1,2,3);
                             </th>
                             <th>
                                 <?php
-                                    numemploy($idData, $connection)
+                                numemploy($idData, $connection)
                                 ?>
                             </th>
                             <th>
-                                <a href="view.php?show=<?= $data['id'] ?>" class="mr-3"><i class="fa-solid fa-eye"></i></a>
-                                <a href="list.php?delete=<?= $data['id'] ?>" class="mr-3"><i class="fa-solid fa-trash"></i></a>
-                                <a href="update.php?edit=<?= $data['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/web2/department/view.php?show=<?= $data['id'] ?>" class="mr-3"><i class="fa-solid fa-eye"></i></a>
+                                <a href="/web2/department/list.php?delete=<?= $data['id'] ?>" class="mr-3"><i class="fa-solid fa-trash"></i></a>
+                                <a href="/web2/department/update.php?edit=<?= $data['id'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                             </th>
                         </tr>
-                    <?php } ?>
+                    <?php   endforeach;?>
                 </table>
             </div>
         </div>

@@ -15,7 +15,7 @@ auth(1, 2, 3);
 <section class="home_list">
     <h3 class="text-center">Welcome List Admin Page </h3>
     <h3 class="text-center"><?= $message ?> </h3>
-    <div class="container col-5">
+    <div class="container col-6">
         <div class="card">
             <div class="card-body">
                 <div class="card-body">

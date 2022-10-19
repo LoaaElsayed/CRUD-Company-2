@@ -56,6 +56,7 @@ if (isset($_POST['send'])) {
     if(empty($arrayerror)){
         $insert = "INSERT INTO `employees`  VALUES (null , '$Name' , '$email','$location' ,$depID)";
         $in = mysqli_query($connection, $insert);
+        path("/employee/list.php");
     }
     
 }
@@ -69,12 +70,6 @@ auth(1,2);
 
 <section class="home_1">
     <h3 class="text-center">Welcome In Add Employee </h3>
-    <!-- <h6 class="text-center"><?php print_r($_FILES);?> </h6> -->
-    <?php if((!empty($m))):?>
-    <div class="alert alert-danger" role="alert">
-        <?php echo $m?>
-    </div>
-    <?php endif;?>
     <?php if(!empty($arrayerror)):?>
         <div class="alert alert-danger" role="alert">
             <ul>
@@ -117,8 +112,6 @@ auth(1,2);
         </div>
     </div>
 </section>
-
-
 <?php
 include '../shared/footer.php';
 ?>

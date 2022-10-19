@@ -25,6 +25,7 @@ if (isset($_POST['send'])) {
     if(empty($arrayerror)){
         $insert = "INSERT INTO `depaetments`VALUES (null,'$name','$mangername')";
         $dep_ins = mysqli_query($connection, $insert);
+        path("department/list.php");
     }
     
 }

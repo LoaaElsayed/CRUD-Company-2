@@ -36,13 +36,6 @@ function auth($num1,$num2=null,$num3=null)
         path('admin/login.php');
     }
 }
-// function val($x){
-//     $v="";
-//     if(trim($x) ==""){
-//         $arrayerror[] =$v;
-//     }
-    
-// }
 
 function numemploy($idData,$connection)
 {

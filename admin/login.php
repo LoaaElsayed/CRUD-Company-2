@@ -41,7 +41,7 @@ if(isset($_POST['login'])){
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="text" class="form-control" name="passadmin">
+                        <input type="password" class="form-control" name="passadmin">
                     </div>
                     <button class="btn btn-secondary col-3 mt-2" name="login">LogIn</button>
                 </form>

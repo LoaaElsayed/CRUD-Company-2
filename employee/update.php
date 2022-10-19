@@ -54,23 +54,20 @@ if (isset($_GET['edit'])) {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $arrayerror[]= "please entar correct email";
         };
-        
-
-
+        if(empty($_FILES['image']['name'])){
+            $location  = $row['image'];
+        }
         if(empty($arrayerror)){
             $update="UPDATE `employees` SET `name`='$Name',`email`='$email',`image`='$location' ,`depID`='$depID' WHERE id =$id";
             $up = mysqli_query($connection, $update);
             path('employee/list.php');
         }
-        
-
-        
-
     }
 }
 
 $select = "SELECT * FROM `depaetments`";
 $departments = mysqli_query($connection, $select);
+
 
 
 auth(1,2);

@@ -11,8 +11,7 @@ if(isset($_GET['edit'])){
     if(isset($_POST['update'])){
         $name = $_POST['depname'];
         $mangerName = $_POST['manname'];
-        $numEmployees = $_POST['numemp'];
-        $dep_update="UPDATE `depaetments` SET `name`='$name',`manger_name`='$mangerName',`num_of_emp`=$numEmployees WHERE id =$id";
+        $dep_update="UPDATE `depaetments` SET `name`='$name',`manger_name`='$mangerName' WHERE id =$id";
         $deup = mysqli_query($connection, $dep_update) ;
         path('department/list.php');
     }
@@ -33,10 +32,6 @@ auth(1);
                     <div class="form-group">
                         <label for="">Manger Name</label>
                         <input type="text" class="form-control" name="manname" value="<?= $row['manger_name']?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Number OF Employees</label>
-                        <input type="text" class="form-control" name="numemp" value="<?= $row['num_of_emp']?>">
                     </div>
                     <button class="btn btn-secondary col-3 mt-2" name="update">Update</button>
                 </form>
